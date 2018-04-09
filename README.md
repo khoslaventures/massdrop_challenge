@@ -28,7 +28,7 @@ User submits www.google.com to your endpoint. The user gets back a job id. Your 
 
 ## Endpoints
 
-### GET /api/v1/
+### GET /api/v1/ - Gets all jobs
 ```
 ❯ http GET localhost:3000/api/v1/
 ```
@@ -69,7 +69,7 @@ X-XSS-Protection: 1; mode=block
     "status": 200
 }
 ```
-### POST /api/v1/url
+### POST /api/v1/url - Create a job
 ```
 ❯ http POST localhost:3000/api/v1/url <<< '{"url": "http://www.google.com"}'
 ```
@@ -101,7 +101,7 @@ X-XSS-Protection: 1; mode=block
 }
 ```
 
-### DELETE /api/v1/
+### DELETE /api/v1/ - Delete all jobs
 ```
 ❯ http DELETE localhost:3000/api/v1/
 ```
@@ -130,7 +130,7 @@ X-XSS-Protection: 1; mode=block
 }
 ```
 
-### GET /api/v1/:id
+### GET /api/v1/:id - Get a job by ID
 ```
 ❯ http GET localhost:3000/api/v1/5acb578109347688bd5fff35
 ```
@@ -162,7 +162,7 @@ X-XSS-Protection: 1; mode=block
 }
 
 ```
-### PUT /api/v1/:id
+### PUT /api/v1/:id - Update a job by ID
 
 ```
 ❯ http PUT localhost:3000/api/v1/5acb578109347688bd5fff35 <<< '{"url":"http://gmail.com"}'
@@ -195,7 +195,7 @@ X-XSS-Protection: 1; mode=block
 }
 ```
 
-### DELETE /api/v1/:id
+### DELETE /api/v1/:id - Delete a job by ID
 ```
 ❯ http DELETE localhost:3000/api/v1/5acb578109347688bd5fff35
 ```
