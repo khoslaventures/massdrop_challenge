@@ -1,5 +1,23 @@
 # REST API Job Queue
 
+## What I assumed, and would have done differently
+
+Jobs are done FIFO. I don't explicitly use a queue, but I basically take a job and start it as soon as it is created.
+
+I assumed that there was no need for authentication or rate limiting for this - that would take far longer to implement. I would have written tests (Probably with Mocha/Chai) and implemented those two had I had the time.
+
+## How to Run
+
+Make sure you have Yarn, MongoDB and httpie or Postman installed.
+
+Install dependencies with:
+`yarn install`
+
+Run the server:
+`yarn server`
+
+Source code is in TypeScript and transpiles to ES6.
+
 ## Instructions
 
 Create a job queue whose workers fetch data from a URL and store the results in a database. The job queue should expose a REST API for adding jobs and checking their status / results.
@@ -234,22 +252,3 @@ X-XSS-Protection: 1; mode=block
     "status": 200
 }
 ```
-
-
-## What I assumed, and would have done differently
-
-Jobs are done FIFO. I don't explicitly use a queue, but I basically take a job and start it as soon as it is created.
-
-I assumed that there was no need for authentication or rate limiting for this - that would take far longer to implement. I would have written tests (Probably with Mocha/Chai) and implemented those two had I had the time.
-
-## How to Run
-
-Make sure you have Yarn, MongoDB and httpie or Postman installed.
-
-Install dependencies with:
-`yarn install`
-
-Run the server:
-`yarn server`
-
-Source code is in TypeScript and transpiles to ES6.
