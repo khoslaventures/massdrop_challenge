@@ -34,48 +34,46 @@ class JobRouter {
             status: 'In Progress',
         });
         job.save()
-            .then((data) => {
+            .then((job) => {
             const status = res.statusCode;
             res.json({
                 status,
-                data
+                job
             });
-        })
-            .catch((error) => {
+            console.log("Responded");
+            return job;
+        }).catch((err) => {
             const status = res.statusCode;
             res.json({
                 status,
-                error
+                err
             });
-        });
-        let invalidURL = validate({ website: jobURL }, { website: { url: true } });
-        if (invalidURL) {
-            const statusMsg = "Job has failed: Invalid URL";
-            Job_1.default.findByIdAndUpdate(job._id, {
-                url: jobURL,
-                content: '',
-                status: statusMsg,
-            });
-        }
-        else {
-            rp(jobURL)
+            console.log("Responded");
+        }).
+            then((job) => {
+            // validate error catching
+            validate({ website: job.url }, { website: { url: true } });
+            rp(job.url)
                 .then((html) => {
                 const statusMsg = "Job is complete";
-                Job_1.default.findByIdAndUpdate(job._id, {
-                    url: jobURL,
-                    content: html,
-                    status: statusMsg,
-                }).catch((err) => {
-                    const statusMsg = "Job has failed: URL is unavailable";
-                    Job_1.default.findByIdAndUpdate(job._id, {
-                        url: jobURL,
-                        content: err.message,
-                        status: statusMsg,
-                    });
-                    console.log("URL is unavailable", err.message);
-                });
+                job.content = html;
+                job.status = statusMsg;
+                job.save();
+                console.log(job.id, "is complete.");
+            }).catch((err) => {
+                const statusMsg = "Job has failed: URL is unavailable";
+                job.content = err.message,
+                    job.status = statusMsg,
+                    job.save();
+                console.log("URL is unavailable", err.message);
             });
-        }
+        }).catch((err) => {
+            const statusMsg = "Job has failed: Invalid URL";
+            job.content = err.message,
+                job.status = statusMsg,
+                job.save();
+            console.log("Invalid URL", err.message);
+        });
     }
     GetJob(req, res) {
         const id = req.params.id;
