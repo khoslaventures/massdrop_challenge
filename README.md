@@ -10,6 +10,9 @@ I assumed that there was no need for authentication or rate limiting for this - 
 
 Make sure you have Yarn, MongoDB and httpie or Postman installed.
 
+Build and watch with:
+`yarn ts`
+
 Install dependencies with:
 `yarn install`
 
